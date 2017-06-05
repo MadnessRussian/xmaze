@@ -1,5 +1,7 @@
 extends Node
 
+#глобальный класс
+
 var buttonSize = Vector2(144,40) setget ,getButtonSize
 var screenSize = Vector2(800,600) setget ,getScreenSize
 var globalSize = Vector2(Globals.get("display/width"),Globals.get("display/height")) setget ,getGlobalSize
@@ -24,14 +26,12 @@ func getScaleParam():
 	return scaleParam;
 	pass
 
-enum CellState{
-	Open,
-	Close
-}
 
+#класс для тайла лабиринта
 class Cell:
 	var x = 0;
 	var y = 0;
+	#флаги открытых/закрытых направлений клетки. по часовой стрелке начиная с верхней
 	var directions = [1,1,1,1];
 	
 	var visited ;

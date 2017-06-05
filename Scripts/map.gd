@@ -109,7 +109,7 @@ func generate():
 			if(next.y !=currentCell.y):
 				if (currentCell.y - next.y > 0):           
 					level[currentCell.x][currentCell.y].directions[0] = 0
-					level[next.x][next.y].directions[2] = Open
+					level[next.x][next.y].directions[2] = 0
 				else:
 					level[currentCell.x][currentCell.y].directions[2] = 0;
 					level[next.x][next.y].directions[0] = 0;
