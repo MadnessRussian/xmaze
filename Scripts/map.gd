@@ -18,7 +18,7 @@ func drawToDisplay(array):
 				line.append(tile);
 			map.append(line)
 		pass
-
+#метод обработки типа элемента для его отображения
 func getElement(type):
 	var element
 	
@@ -64,28 +64,28 @@ func getElement(type):
 	return element;
 	pass
 
-enum CellState{
-	Open,
-	Close
-}
-
-
+#основной метод генерации
 func generate():
 	level = [];
+	#создаем массив с пустыми обьектами
 	for i in range(size):
 		var line = []
 		for j in range(size):
 			line.append(Global.Cell.new(i,j,false));
 		level.append(line)
 	randomize();
+	# выбираем случайную точку и отмечаем как помеченую
 	var startx = round(rand_range(0,size-1));
 	var starty = round(rand_range(0,size-1));
 	level[startx][starty].visited = true;
 	var map = [];
+	#map -  основной массив. вносим стартовую клетку
 	map.append(level[startx][starty])
 	while(!map.empty()):
+		#выбираем клетку из открытого списка
 		var currentCell = map[map.size()-1];
 		var nextstep = [];
+		#создаем список соседей и добавляем близжайших
 		if (currentCell.x > 0 && (level[currentCell.x - 1][currentCell.y].visited  == false)):
 		           nextstep.append(level[currentCell.x - 1][currentCell.y]);
 		if (currentCell.x < size-1 && (level[currentCell.x + 1][currentCell.y].visited  == false)):
@@ -96,8 +96,9 @@ func generate():
 		           nextstep.append(level[currentCell.x ][currentCell.y+1]);
 		if(!nextstep.empty()):
 			randomize();
+			#для следующего шага выбираем случайную
 			var next = nextstep[round(rand_range(0,nextstep.size()-1))];
-			
+			#открываем путь из прошлой ячейки
 			if(next.x !=currentCell.x):
 				if (currentCell.x - next.x > 0):           
 					level[currentCell.x][currentCell.y].directions[3] = 0
@@ -112,10 +113,12 @@ func generate():
 				else:
 					level[currentCell.x][currentCell.y].directions[2] = 0;
 					level[next.x][next.y].directions[0] = 0;
+			#ставим необходимые флаги что мы тут были и добавляем в открытый список как узел
 			next.visited = true;
 			level[next.x][next.y].visited = true;
 			map.append(next);
 		else:
+			#если соседей нет. идем назад по открытому списку к свободному узлу
 			map.remove(map.size()-1)
 	drawToDisplay(level)
 	pass
