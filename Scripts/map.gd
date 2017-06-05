@@ -1,16 +1,8 @@
 extends Node
 
 const size = 15;
-enum CellState{
-	Open,
-	Close
-}
-
-var endX = 18;
-var endy = 18;
 
 var level  = [];
-
 
 func _ready():
 	generate();
@@ -72,72 +64,18 @@ func getElement(type):
 	return element;
 	pass
 
-	
-class Cell:
-	var x = 0;
-	var y = 0;
-	var left = CellState;
-	var right = CellState;
-	var top = CellState;
-	var bottom = CellState;
-	
-	var visited ;
-	
-	func _init(objx,objy,visit):
-		x = objx
-		y = objy
-		visited = visit;
-		left = Close;
-		right = Close;
-		top = Close;
-		bottom = Close;
-		pass
-	
-	func getType():
+enum CellState{
+	Open,
+	Close
+}
 
-		var type;
-		if(bottom == Close && top == Open && right == Open && left == Open):
-			type = 0;
-		if(bottom == Close && top == Open && right == Open && left == Close):
-			type = 1;
-		if(bottom == Close && top == Close && right == Open && left == Close):
-			type = 2;
-		if(bottom == Close && top == Open && right == Close && left == Open):
-			type = 3;
-		if(bottom == Open && top == Open && right == Open && left == Open):
-			type = 4;
-		if(bottom == Open && top == Open  && right == Open && left == Close):
-			type = 5;
-		if(bottom == Open && top == Close && right == Open && left == Open):
-			type = 6;
-		if(bottom == Close && top == Close && right == Open && left == Open):
-			type = 7;
-		if(bottom == Open && top == Close && right == Open && left == Close):
-			type = 8;
-		if(bottom == Open && top == Close && right == Close && left == Open):
-			type = 9;
-		if(bottom == Close && top == Close && right == Close && left == Open):
-			type = 10;
-		if(bottom == Open && top == Open && right == Close && left == Open):
-			type = 11;
-		if(bottom == Close && top == Open && right == Close && left == Close):
-			type = 12;
-		if(bottom == Open && top == Open && right == Close && left == Close):
-			type = 13;
-		if(bottom == Open && top == Close && right == Close && left == Close):
-			type = 14;
-		return type;
-		
-		pass
 
 func generate():
 	level = [];
-	var total = 0;
 	for i in range(size):
 		var line = []
 		for j in range(size):
-			line.append(Cell.new(i,j,false));
-			total+=1;
+			line.append(Global.Cell.new(i,j,false));
 		level.append(line)
 	randomize();
 	var startx = round(rand_range(0,size-1));
@@ -187,6 +125,6 @@ func _on_Button_pressed():
 	for enemy in enemies:
     	enemy.queue_free()
 	generate()
-	pass # replace with function body
+	pass 
 
 
