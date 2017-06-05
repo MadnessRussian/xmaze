@@ -100,18 +100,18 @@ func generate():
 			
 			if(next.x !=currentCell.x):
 				if (currentCell.x - next.x > 0):           
-					level[currentCell.x][currentCell.y].left = Open
-					level[next.x][next.y].right = Open
+					level[currentCell.x][currentCell.y].directions[3] = 0
+					level[next.x][next.y].directions[1] = 0
 				else:
-					level[currentCell.x][currentCell.y].right = Open;
-					level[next.x][next.y].left = Open;
+					level[currentCell.x][currentCell.y].directions[1] = 0;
+					level[next.x][next.y].directions[3] = 0;
 			if(next.y !=currentCell.y):
 				if (currentCell.y - next.y > 0):           
-					level[currentCell.x][currentCell.y].top = Open
-					level[next.x][next.y].bottom = Open
+					level[currentCell.x][currentCell.y].directions[0] = 0
+					level[next.x][next.y].directions[2] = Open
 				else:
-					level[currentCell.x][currentCell.y].bottom = Open;
-					level[next.x][next.y].top = Open;
+					level[currentCell.x][currentCell.y].directions[2] = 0;
+					level[next.x][next.y].directions[0] = 0;
 			next.visited = true;
 			level[next.x][next.y].visited = true;
 			map.append(next);

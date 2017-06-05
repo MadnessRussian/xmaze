@@ -32,10 +32,7 @@ enum CellState{
 class Cell:
 	var x = 0;
 	var y = 0;
-	var left = CellState;
-	var right = CellState;
-	var top = CellState;
-	var bottom = CellState;
+	var directions = [1,1,1,1];
 	
 	var visited ;
 	
@@ -43,45 +40,30 @@ class Cell:
 		x = objx
 		y = objy
 		visited = visit;
-		left = Close;
-		right = Close;
-		top = Close;
-		bottom = Close;
 		pass
 	
 	func getType():
-
-		var type;
-		if(bottom == Close && top == Open && right == Open && left == Open):
-			type = 0;
-		if(bottom == Close && top == Open && right == Open && left == Close):
-			type = 1;
-		if(bottom == Close && top == Close && right == Open && left == Close):
-			type = 2;
-		if(bottom == Close && top == Open && right == Close && left == Open):
-			type = 3;
-		if(bottom == Open && top == Open && right == Open && left == Open):
-			type = 4;
-		if(bottom == Open && top == Open  && right == Open && left == Close):
-			type = 5;
-		if(bottom == Open && top == Close && right == Open && left == Open):
-			type = 6;
-		if(bottom == Close && top == Close && right == Open && left == Open):
-			type = 7;
-		if(bottom == Open && top == Close && right == Open && left == Close):
-			type = 8;
-		if(bottom == Open && top == Close && right == Close && left == Open):
-			type = 9;
-		if(bottom == Close && top == Close && right == Close && left == Open):
-			type = 10;
-		if(bottom == Open && top == Open && right == Close && left == Open):
-			type = 11;
-		if(bottom == Close && top == Open && right == Close && left == Close):
-			type = 12;
-		if(bottom == Open && top == Open && right == Close && left == Close):
-			type = 13;
-		if(bottom == Open && top == Close && right == Close && left == Close):
-			type = 14;
-		return type;
+		var mytype = 0;
+		var newtypes = [
+			[0,0,1,0], #b
+			[0,0,1,1], #bl
+			[1,0,1,1], #blt
+			[0,1,1,0], #rb
+			[0,0,0,0], #empty 
+			[0,0,0,1], #l
+			[1,0,0,0], #top
+			[1,0,1,0], #tb
+			[1,0,0,1], #lt
+			[1,1,0,0], #tr
+			[1,1,1,0], #trb
+			[0,1,0,0], #r
+			[0,1,1,1], #rbl
+			[0,1,0,1], #rl
+			[1,1,0,1] #ltr
+		]
+		for i in range(newtypes.size()):
+			if(newtypes[i] == directions):
+				mytype = i;
+		return mytype;
 		
 		pass
