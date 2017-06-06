@@ -1,6 +1,6 @@
 extends Node
 
-#глобальный класс
+#глобальный класс новый
 
 var buttonSize = Vector2(144,40) setget ,getButtonSize
 var screenSize = Vector2(800,600) setget ,getScreenSize
