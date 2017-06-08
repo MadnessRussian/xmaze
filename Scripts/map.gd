@@ -3,20 +3,24 @@ extends Node
 const size = 15;
 
 var level  = [];
+var map = [];
 
 func _ready():
 	generate();
 	pass
 	
 func drawToDisplay(array):
-		var map = [];
+		map = [];
 		for i in range(size):
 			var line = []
 			for j in range(size):
 				var tile = getElement(array[i][j].getType())
-				tile.set_translation(Vector3(-size*2/2+2*i,0,-size*2/2+2*j))
+				tile.set_translation(Vector3(-size+i*2,0,-size+j*2))
 				line.append(tile);
 			map.append(line)
+		var player =  get_node("player");
+		player.set_translation(map[8][8].get_translation())
+		Global.setPlayerPos(Vector2(8,8));
 		pass
 #метод обработки типа элемента для его отображения
 func getElement(type):

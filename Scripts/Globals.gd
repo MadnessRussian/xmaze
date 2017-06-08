@@ -7,6 +7,7 @@ var screenSize = Vector2(800,600) setget ,getScreenSize
 var globalSize = Vector2(Globals.get("display/width"),Globals.get("display/height")) setget ,getGlobalSize
 var scaleParam = Vector2(globalSize.x/screenSize.x, 
 						 globalSize.y/screenSize.y) setget ,getScaleParam
+var playerPos = Vector2(0,0) setget  setPlayerPos,getPlayerPos
 
 
 func ready():
@@ -25,6 +26,13 @@ func getGlobalSize():
 func getScaleParam():
 	return scaleParam;
 	pass
+	
+func getPlayerPos():
+	return playerPos;
+	pass
+func setPlayerPos(pos):
+	playerPos = pos;
+	pass
 
 
 #класс для тайла лабиринта
@@ -32,7 +40,7 @@ class Cell:
 	var x = 0;
 	var y = 0;
 	#флаги открытых/закрытых направлений клетки. по часовой стрелке начиная с верхней
-	var directions = [1,1,1,1];
+	var directions = [1,1,1,1] setget ,getDirections;
 	
 	var visited ;
 	
@@ -41,7 +49,9 @@ class Cell:
 		y = objy
 		visited = visit;
 		pass
-	
+	func getDirections():
+		return directions;
+		pass
 	func getType():
 		var mytype = 0;
 		var newtypes = [
