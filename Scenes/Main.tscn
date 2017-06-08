@@ -130,12 +130,38 @@ shortcut = null
 text = "right"
 flat = false
 
-[connection signal="pressed" from="buttons/top" to="." method="_on_top_pressed"]
+[node name="Button" type="Button" parent="."]
 
-[connection signal="pressed" from="buttons/bottom" to="." method="_on_bottom_pressed"]
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 17.0
+margin/top = 10.0
+margin/right = 58.0
+margin/bottom = 30.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "back"
+flat = false
 
-[connection signal="pressed" from="buttons/right" to="." method="_on_right_pressed"]
+[connection signal="button_down" from="buttons/top" to="." method="_on_top_button_down"]
 
-[connection signal="pressed" from="buttons/left" to="." method="_on_left_pressed"]
+[connection signal="button_up" from="buttons/top" to="." method="_on_top_button_up"]
+
+[connection signal="button_down" from="buttons/bottom" to="." method="_on_bottom_button_down"]
+
+[connection signal="button_up" from="buttons/bottom" to="." method="_on_bottom_button_up"]
+
+[connection signal="button_down" from="buttons/right" to="." method="_on_right_button_down"]
+
+[connection signal="button_up" from="buttons/right" to="." method="_on_right_button_up"]
+
+[connection signal="button_down" from="buttons/left" to="." method="_on_left_button_down"]
+
+[connection signal="button_up" from="buttons/left" to="." method="_on_left_button_up"]
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 
 
