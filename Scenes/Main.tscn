@@ -12,7 +12,21 @@ script/script = ExtResource( 1 )
 
 [node name="player" parent="map" instance=ExtResource( 3 )]
 
-[node name="Camera" type="Camera" parent="map/player"]
+[node name="cameraAndLight" type="KinematicBody" parent="map/player"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+input/ray_pickable = true
+input/capture_on_drag = false
+shape_count = 0
+collision/layers = 1
+collision/mask = 1
+collide_with/static = true
+collide_with/kinematic = true
+collide_with/rigid = true
+collide_with/character = true
+collision/margin = 0.001
+
+[node name="Camera" type="Camera" parent="map/player/cameraAndLight"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, 0, 0, 0.568012, 0.823021, 0, -0.823021, 0.568012, -0.0190817, 8.46184, 7.13021 )
@@ -27,7 +41,7 @@ environment = null
 h_offset = 0.0
 v_offset = 0.0
 
-[node name="SpotLight" type="SpotLight" parent="map/player"]
+[node name="SpotLight" type="SpotLight" parent="map/player/cameraAndLight"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, 0, 0, 0.505329, 0.862927, 0, -0.862927, 0.505329, 0, 45.5154, 21.0211 )
@@ -130,6 +144,22 @@ shortcut = null
 text = "right"
 flat = false
 
+[node name="rotate" type="Button" parent="buttons"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 684.0
+margin/top = 517.0
+margin/right = 745.0
+margin/bottom = 537.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "ROTATE"
+flat = false
+
 [node name="Button" type="Button" parent="."]
 
 focus/ignore_mouse = false
@@ -161,6 +191,8 @@ flat = false
 [connection signal="button_down" from="buttons/left" to="." method="_on_left_button_down"]
 
 [connection signal="button_up" from="buttons/left" to="." method="_on_left_button_up"]
+
+[connection signal="pressed" from="buttons/rotate" to="." method="_on_rotate_pressed"]
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
 
