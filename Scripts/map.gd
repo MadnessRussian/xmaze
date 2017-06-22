@@ -21,6 +21,10 @@ func drawToDisplay(array):
 		var player =  get_node("player");
 		player.set_translation(map[8][8].get_translation())
 		Global.setPlayerPos(Vector2(8,8));
+		
+		Global.setMap(array);
+
+		
 		pass
 #метод обработки типа элемента для его отображения
 func getElement(type):

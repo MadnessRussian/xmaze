@@ -9,11 +9,32 @@ var scaleParam = Vector2(globalSize.x/screenSize.x,
 						 globalSize.y/screenSize.y) setget ,getScaleParam
 var playerPos = Vector2(0,0) setget  setPlayerPos,getPlayerPos
 
+var map = [] setget setMap,getMap
+
+
+
+var movementSpeed = 5;
+#направления движений
+var moveDirs = [
+				Vector2(0,-1),
+				Vector2(1,0),
+				Vector2(0,1),
+				Vector2(-1,0)
+				]
+#типы движений(по часовой стрелке) верх-вправо-вниз-влево
+var types = [0,1,2,3];
+
 
 func ready():
 	
 	pass
-
+	
+func getMap():
+	return map;
+	pass
+func setMap(newmap):
+	map = newmap;
+	pass
 func getButtonSize():
 	return buttonSize;
 	pass

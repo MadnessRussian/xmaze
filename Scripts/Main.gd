@@ -22,8 +22,6 @@ var currentAngle;
 var movement = false;
 #дельта движения
 var movementDelta = 0;
-#скорость движения
-var movementSpeed = 5;
 #окончательная позиция куда нужно попасть
 var movementFinishPosition;
 #направление перемешения
@@ -31,16 +29,12 @@ var currentPos;
 #дельта перемещения
 var deltaPoint;
 
-
-#направления движений
-var moveDirs = [
-				Vector2(0,-1),
-				Vector2(1,0),
-				Vector2(0,1),
-				Vector2(-1,0)
-				]
 #типы движений(по часовой стрелке) верх-вправо-вниз-влево
 var types = [0,1,2,3];
+
+
+
+var deltaTime = 0.5;
 
 
 func _ready():
@@ -48,21 +42,37 @@ func _ready():
 	map = get_node("map").level; 
 	cameraAndLight = get_node("map/player/cameraAndLight")
 	
+	
+	var ogr = preload("res://Scenes/ogr.tscn").instance();
+	add_child(ogr)
+	var ogr = preload("res://Scenes/ogr.tscn").instance();
+	add_child(ogr)
+	var ogr = preload("res://Scenes/ogr.tscn").instance();
+	add_child(ogr)
+	var ogr = preload("res://Scenes/ogr.tscn").instance();
+	add_child(ogr)
 	set_process(true)
 	pass
 	
 func _process(delta):
-	if(deltasumm<0.5):
+	#счетчик действий. не можем сделать что либо чаще утановленного промежутка времени
+	if(deltasumm<deltaTime):
 		deltasumm+=delta
-
-	if(isMove == true && movement == false && cameraRotate == false && deltasumm>0.3):
+	
+	#проверка на движение. если мы уже не двигаемся. камеру не двигаем и время позволяет то выполняем движение
+	if(isMove == true && movement == false && cameraRotate == false && deltasumm>deltaTime/2):
 		deltasumm = 0;
+		#проверяем. открыт ли нам путь
 		if (map[Global.getPlayerPos().x][Global.getPlayerPos().y].getDirections()[type] ==0):
-			Global.setPlayerPos(Global.getPlayerPos()+moveDirs[type]);
-			currentPos = Vector3(moveDirs[type].x*2,0,moveDirs[type].y*2)
+			#путь открыт - меняем координату персонажа
+			Global.setPlayerPos(Global.getPlayerPos()+Global.moveDirs[type]);
+			#для перемешения задаем ему позицию в которую он должен прийти и вектор
+			currentPos = Vector3(Global.moveDirs[type].x*2,0,Global.moveDirs[type].y*2)
 			movementFinishPosition = player.get_translation() + currentPos;
+			#ставим флаг движения и обнуляем дельту позиции
 			deltaPoint = Vector3(0,0,0);
 			movement = true;
+	
 
 	if(movement == true):
 		move(delta)
@@ -80,15 +90,15 @@ func rotate(delta):
 		deltaAngle = 0;
 
 func move(delta):
-	movementDelta+=delta*movementSpeed;
+	movementDelta+=delta*Global.movementSpeed;
 	if(currentPos.x<0):
-		deltaPoint.x=-delta*movementSpeed;
+		deltaPoint.x=-delta*Global.movementSpeed;
 	if(currentPos.x>0):
-		deltaPoint.x=delta*movementSpeed;
+		deltaPoint.x=delta*Global.movementSpeed;
 	if(currentPos.z<0):
-		deltaPoint.z=-delta*movementSpeed;
+		deltaPoint.z=-delta*Global.movementSpeed;
 	if(currentPos.z>0):
-		deltaPoint.z=delta*movementSpeed;
+		deltaPoint.z=delta*Global.movementSpeed;
 	if(movementDelta<2):
 			player.set_translation(player.get_translation()+deltaPoint);
 	else:
@@ -130,13 +140,6 @@ func _on_left_button_up():
 	isMove = false;
 	pass 
 
-
-
-func _on_Button_pressed():
-	get_tree().change_scene("res://Scenes/Menu.tscn")
-	pass # replace with function body
-
-
 func _on_rotate_pressed():
 	if(cameraRotate == false):
 		var temp = [];
@@ -147,3 +150,10 @@ func _on_rotate_pressed():
 		currentAngle = cameraAndLight.get_rotation_deg()+Vector3(0,90,0);
 		cameraRotate = true;
 	pass # replace with function body
+
+func _on_Button_pressed():
+	get_tree().change_scene("res://Scenes/Menu.tscn")
+	pass # replace with function body
+
+
+
