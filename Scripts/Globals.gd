@@ -10,7 +10,8 @@ var scaleParam = Vector2(globalSize.x/screenSize.x,
 
 
 func ready():
-	
+	#берем разрешение по экрану. 
+	globalSize =  get_viewport().get_rect().size;
 	pass
 
 func getButtonSize():
