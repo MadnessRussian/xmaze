@@ -20,6 +20,9 @@ var movementDelta = 0;
 var movementFinishPosition;
 
 var ugol=0;
+var koridor = 0;
+
+var old_dirs=[2,3,0,1];
 
 func _ready():
 	randomize();
@@ -40,45 +43,46 @@ func _process(delta):
 		#проверяем. свободен ли путь и не обратно ли мы идем
 		#туповатый противник
 		if movement_type == 0 :
-			if (Global.map[currentPos.x][currentPos.y].getDirections()[type] ==0 &&  (oldtype!=type || ugol==1)):
+			if (Global.map[currentPos.x][currentPos.y].getDirections()[type] ==0 &&  (oldtype!=type || ugol==1 ) && (ugol<3 || koridor==1)):
 				#запоминаем откуда пришли
-				if(type==0): oldtype = 2;
-				if(type==1): oldtype = 3;
-				if(type==2): oldtype = 0;
-				if(type==3): oldtype = 1;
-				
-				currentPos+=Global.moveDirs[type];
-				nextPos = Vector3(Global.moveDirs[type].x*2,0,Global.moveDirs[type].y*2)
-				movementFinishPosition = get_translation() + nextPos;
-				deltaPoint = Vector3(0,0,0);
-				movement = true;
+				oldtype=old_dirs[type];
+				change_position()
 			else:
-				#метод для определения тупиков.
-				ugol = 0;
-				for point in Global.map[currentPos.x][currentPos.y].getDirections():
-					if(point == 0):ugol+=1;
-				randomize();
-				type = round(rand_range(0,Global.types.size()-1));
+				check_dirs(ugol)
+				generate_dir();
 		#резкий и умный противник
 		if movement_type == 1:
-			if (Global.map[currentPos.x][currentPos.y].getDirections()[type] == 0  && (ugol<3 || oldtype==1) ): 
-				ugol = 0;
-				currentPos+=Global.moveDirs[type];
-				for point in Global.map[currentPos.x][currentPos.y].getDirections():
-					if(point == 0):ugol+=1;
-				oldtype = 0;
-				nextPos = Vector3(Global.moveDirs[type].x*2,0,Global.moveDirs[type].y*2)
-				movementFinishPosition = get_translation() + nextPos;
-				deltaPoint = Vector3(0,0,0);
-				movement = true;
+			if (Global.map[currentPos.x][currentPos.y].getDirections()[type] == 0  && (ugol<3 || koridor==1) ): 
+				change_position()
 			else:
-				if(ugol>2):
-					oldtype = 1;
-					ugol = 0;
-				randomize();
-				type = round(rand_range(0,Global.types.size()-1));
+				check_dirs(ugol)
+				generate_dir();
 	if(movement == true):
 		move(delta)
+	pass
+
+#выбираем случайное направление
+func generate_dir():
+	randomize();
+	type = round(rand_range(0,Global.types.size()-1));
+	pass
+#меняем позицию  
+func change_position():
+	koridor = 0;
+	ugol = 0;
+	currentPos+=Global.moveDirs[type];
+	for point in Global.map[currentPos.x][currentPos.y].getDirections():
+		if(point == 0):ugol+=1;
+	nextPos = Vector3(Global.moveDirs[type].x*2,0,Global.moveDirs[type].y*2)
+	movementFinishPosition = get_translation() + nextPos;
+	deltaPoint = Vector3(0,0,0);
+	movement = true;
+	pass
+
+func check_dirs(dirs):
+	if(dirs>2):
+		koridor = 1;
+		ugol = 0;
 	pass
 	
 func move(delta):
