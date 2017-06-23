@@ -9,6 +9,11 @@ func _ready():
 	player = get_node("map/player");
 	map = get_node("map").level; 
 	
+	var moveButtons = get_node("buttons");
+	moveButtons.set_pos(Global.getGlobalSize()-moveButtons.get_size()*1.1)
+	var rotateButton = get_node("rotate");
+	rotateButton.set_pos(Vector2(0,Global.getGlobalSize().y)-rotateButton.get_size()*Vector2(-0.7,2))
+	
 	
 	var ogr = preload("res://Scenes/ogr.tscn").instance();
 	ogr.movement_type = 0;

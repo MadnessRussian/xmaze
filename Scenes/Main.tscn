@@ -29,7 +29,7 @@ collision/margin = 0.001
 [node name="Camera" type="Camera" parent="map/player/cameraAndLight"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 0.568012, 0.823021, 0, -0.823021, 0.568012, -0.0190817, 8.46184, 7.13021 )
+transform/local = Transform( 1, 0, 0, 0, 0.501922, 0.864914, 0, -0.864914, 0.501922, -0.0190817, 8.66147, 4.82859 )
 projection = 0
 fov = 60.0
 near = 0.1
@@ -41,15 +41,15 @@ environment = null
 h_offset = 0.0
 v_offset = 0.0
 
-[node name="SpotLight" type="SpotLight" parent="map/player/cameraAndLight"]
+[node name="DirectionalLight" type="DirectionalLight" parent="map/player/cameraAndLight"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 0.505329, 0.862927, 0, -0.862927, 0.505329, 0, 45.5154, 21.0211 )
+transform/local = Transform( 1, 0, 0, 0, 0.061651, 0.998098, 0, -0.998098, 0.061651, 0, 26.6498, 0 )
 layers = 1
 params/enabled = true
 params/editor_only = false
 params/bake_mode = 0
-params/energy = 5.0
+params/energy = 1.5
 colors/diffuse = Color( 1, 1, 1, 1 )
 colors/specular = Color( 1, 1, 1, 1 )
 shadow/shadow = false
@@ -60,10 +60,10 @@ shadow/esm_multiplier = 60.0
 shadow/blur_passes = 1.0
 projector = null
 operator = 0
-params/radius = 75.0
-params/attenuation = 1.0
-params/spot_angle = 30.0
-params/spot_attenuation = 1.0
+shadow/mode = 0
+shadow/max_distance = 0.0
+shadow/split_weight = 0.5
+shadow/zoffset_scale = 2.0
 
 [node name="level" type="Node" parent="." groups=[
 "level",
@@ -71,15 +71,14 @@ params/spot_attenuation = 1.0
 
 [node name="buttons" type="Control" parent="."]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.0
+margin/left = 100.0
 margin/top = 0.0
-margin/right = 40.0
-margin/bottom = 40.0
+margin/right = 290.0
+margin/bottom = 130.0
 
 [node name="top" type="Button" parent="buttons"]
 
@@ -87,14 +86,14 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 104.0
-margin/top = 496.0
-margin/right = 137.0
-margin/bottom = 516.0
+margin/left = 65.0
+margin/top = 0.0
+margin/right = 125.0
+margin/bottom = 60.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "top"
+text = "TOP"
 flat = false
 
 [node name="bottom" type="Button" parent="buttons"]
@@ -103,14 +102,14 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 94.0
-margin/top = 535.0
-margin/right = 153.0
-margin/bottom = 555.0
+margin/left = 65.0
+margin/top = 65.0
+margin/right = 125.0
+margin/bottom = 125.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "bottom"
+text = "DOWN"
 flat = false
 
 [node name="right" type="Button" parent="buttons"]
@@ -119,14 +118,14 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 155.0
-margin/top = 512.0
-margin/right = 214.0
-margin/bottom = 532.0
+margin/left = 130.0
+margin/top = 30.0
+margin/right = 190.0
+margin/bottom = 90.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "right"
+text = "RIGHT"
 flat = false
 
 [node name="left" type="Button" parent="buttons"]
@@ -135,30 +134,14 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 32.0
-margin/top = 512.0
-margin/right = 91.0
-margin/bottom = 532.0
+margin/left = 0.0
+margin/top = 30.0
+margin/right = 60.0
+margin/bottom = 90.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-text = "right"
-flat = false
-
-[node name="rotate" type="Button" parent="buttons"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 684.0
-margin/top = 517.0
-margin/right = 745.0
-margin/bottom = 537.0
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-text = "ROTATE"
+text = "LEFT"
 flat = false
 
 [node name="Button" type="Button" parent="."]
@@ -177,6 +160,22 @@ shortcut = null
 text = "back"
 flat = false
 
+[node name="rotate" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 65.0
+margin/bottom = 65.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "ROTATE"
+flat = false
+
 [connection signal="button_down" from="buttons/top" to="." method="_on_top_button_down"]
 
 [connection signal="button_up" from="buttons/top" to="." method="_on_top_button_up"]
@@ -193,8 +192,8 @@ flat = false
 
 [connection signal="button_up" from="buttons/left" to="." method="_on_left_button_up"]
 
-[connection signal="pressed" from="buttons/rotate" to="." method="_on_rotate_pressed"]
-
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+
+[connection signal="pressed" from="rotate" to="." method="_on_rotate_pressed"]
 
 
