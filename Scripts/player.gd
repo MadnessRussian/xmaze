@@ -43,22 +43,24 @@ func _process(delta):
 		deltasumm = 0;
 		#проверяем. открыт ли нам путь
 		if (Global.map[Global.getPlayerPos().x][Global.getPlayerPos().y].getDirections()[type] ==0):
-			#путь открыт - меняем координату персонажа
-			Global.setPlayerPos(Global.getPlayerPos()+Global.moveDirs[type]);
-			#для перемешения задаем ему позицию в которую он должен прийти и вектор
-			currentPos = Vector3(Global.moveDirs[type].x*2,0,Global.moveDirs[type].y*2)
-			movementFinishPosition = get_translation() + currentPos;
-			#ставим флаг движения и обнуляем дельту позиции
-			deltaPoint = Vector3(0,0,0);
-			movement = true;
-	
-
+			change_pos()
 	if(movement == true):
 		move(delta)
-	
 	if(cameraRotate == true):
 		rotate(delta)
 	pass
+
+func change_pos():
+	#путь открыт - меняем координату персонажа
+	Global.setPlayerPos(Global.getPlayerPos()+Global.moveDirs[type]);
+	#для перемешения задаем ему позицию в которую он должен прийти и вектор
+	currentPos = Vector3(Global.moveDirs[type].x*2,0,Global.moveDirs[type].y*2)
+	movementFinishPosition = get_translation() + currentPos;
+	#ставим флаг движения и обнуляем дельту позиции
+	deltaPoint = Vector3(0,0,0);
+	movement = true;
+	pass
+
 func rotate(delta):
 	deltaAngle+=delta*cameraSpeed;
 	if(deltaAngle<90):

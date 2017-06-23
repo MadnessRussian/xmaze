@@ -43,7 +43,7 @@ func _process(delta):
 		#проверяем. свободен ли путь и не обратно ли мы идем
 		#туповатый противник
 		if movement_type == 0 :
-			if (Global.map[currentPos.x][currentPos.y].getDirections()[type] ==0 &&  (oldtype!=type || ugol==1 ) && (ugol<3 || koridor==1)):
+			if (Global.map[currentPos.x][currentPos.y].getDirections()[type] == 0 &&  (oldtype!=type || ugol==1 ) && (ugol<3 || koridor==1)):
 				#запоминаем откуда пришли
 				oldtype=old_dirs[type];
 				change_position()
@@ -79,6 +79,7 @@ func change_position():
 	movement = true;
 	pass
 
+#Если оказались на перекерстке то даем понять что сгенерировали новое направление
 func check_dirs(dirs):
 	if(dirs>2):
 		koridor = 1;
