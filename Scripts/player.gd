@@ -28,8 +28,11 @@ var deltaPoint;
 #типы движений(по часовой стрелке) верх-вправо-вниз-влево
 var types = [0,1,2,3];
 var deltaTime = 0.5;
+var chest ;
 
 func _ready():
+
+	
 	cameraAndLight = get_node("cameraAndLight");
 	set_process(true)
 	pass
@@ -59,6 +62,7 @@ func change_pos():
 	#ставим флаг движения и обнуляем дельту позиции
 	deltaPoint = Vector3(0,0,0);
 	movement = true;
+	
 	pass
 
 func rotate(delta):
@@ -84,9 +88,13 @@ func move(delta):
 			set_translation(get_translation()+deltaPoint);
 	else:
 			set_translation(movementFinishPosition);
+			if(Global.getPlayerPos() == Global.chestPos):
+				get_node("AcceptDialog").show_modal();
+				get_parent().generate_chestPos();
 			movementDelta = 0;
 			movement = false;
 	pass
+
 
 func movement(move_type):
 	if isMove == false :

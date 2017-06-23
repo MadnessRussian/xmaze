@@ -4,6 +4,7 @@ const size = 15;
 
 var level  = [];
 var map = [];
+var chest;
 
 func _ready():
 	generate();
@@ -15,17 +16,28 @@ func drawToDisplay(array):
 			var line = []
 			for j in range(size):
 				var tile = getElement(array[i][j].getType())
-				tile.set_translation(Vector3(-size+i*2,0,-size+j*2))
+				tile.set_translation(Vector3(-size+i*1.995,0,-size+j*1.995))
 				line.append(tile);
 			map.append(line)
 		var player =  get_node("player");
 		player.set_translation(map[8][8].get_translation())
 		Global.setPlayerPos(Vector2(8,8));
 		
+		chest = get_node("chest");
+		generate_chestPos();
+		
 		Global.setMap(array);
 
 		
 		pass
+		
+func generate_chestPos():
+	randomize()
+	var randx = round(rand_range(0,15));
+	var randy = round(rand_range(0,15));
+	Global.chestPos  = Vector2(randx,randy);
+	chest.set_translation(map[randx][randy].get_translation());
+	pass
 #метод обработки типа элемента для его отображения
 func getElement(type):
 	var element

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://Scripts/Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/game/map.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/game/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Resources/chest.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node"]
 
@@ -49,7 +50,7 @@ layers = 1
 params/enabled = true
 params/editor_only = false
 params/bake_mode = 0
-params/energy = 1.5
+params/energy = 1.1
 colors/diffuse = Color( 1, 1, 1, 1 )
 colors/specular = Color( 1, 1, 1, 1 )
 shadow/shadow = false
@@ -64,6 +65,27 @@ shadow/mode = 0
 shadow/max_distance = 0.0
 shadow/split_weight = 0.5
 shadow/zoffset_scale = 2.0
+
+[node name="AcceptDialog" type="AcceptDialog" parent="map/player"]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 350.0
+margin/top = 248.0
+margin/right = 500.0
+margin/bottom = 306.0
+popup/exclusive = false
+window/title = "Alert!"
+dialog/text = "You find a chest bro! 
+find new chest!"
+dialog/hide_on_ok = true
+
+[node name="chest" parent="map" instance=ExtResource( 4 )]
+
+transform/local = Transform( 0.117907, 0, 0, 0, 0.117907, 0, 0, 0, 0.117907, 0, 0, 0 )
 
 [node name="level" type="Node" parent="." groups=[
 "level",
@@ -175,6 +197,22 @@ enabled_focus_mode = 2
 shortcut = null
 text = "ROTATE"
 flat = false
+
+[node name="start" type="AcceptDialog" parent="."]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 307.0
+margin/top = 268.0
+margin/right = 450.0
+margin/bottom = 326.0
+popup/exclusive = false
+window/title = "Alert!"
+dialog/text = "Find a red chest,bro"
+dialog/hide_on_ok = true
 
 [connection signal="button_down" from="buttons/top" to="." method="_on_top_button_down"]
 

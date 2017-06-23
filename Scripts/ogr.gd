@@ -37,11 +37,14 @@ func _process(delta):
 	#счетчик действий. не можем сделать что либо чаще утановленного промежутка времени
 	if(deltasumm<deltaTime):
 		deltasumm+=delta
+	if(currentPos == Global.getPlayerPos()):
+				get_node("AcceptDialog").show_modal();
 	#запуск движения
 	if(movement == false && deltasumm>deltaTime/2 ):
 		deltasumm = 0;
 		#проверяем. свободен ли путь и не обратно ли мы идем
 		#туповатый противник
+		
 		if movement_type == 0 :
 			if (Global.map[currentPos.x][currentPos.y].getDirections()[type] == 0 &&  (oldtype!=type || ugol==1 ) && (ugol<3 || koridor==1)):
 				#запоминаем откуда пришли

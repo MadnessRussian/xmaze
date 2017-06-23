@@ -8,6 +8,7 @@ var globalSize = Vector2(Globals.get("display/width"),Globals.get("display/heigh
 var scaleParam = Vector2(globalSize.x/screenSize.x, 
 						 globalSize.y/screenSize.y) setget ,getScaleParam
 var playerPos = Vector2(0,0) setget  setPlayerPos,getPlayerPos
+var chestPos = Vector2(0,0)
 
 var map = [] setget setMap,getMap
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=1]
 
-[ext_resource path="res://Scripts/ogr.gd" type="Script" id=1]
+[ext_resource path="res://Resources/gmk_goal_chest.msh" type="Mesh" id=1]
 
 [sub_resource type="FixedMaterial" id=1]
 
@@ -13,13 +13,13 @@ flags/lightmap_on_uv2 = true
 flags/colarray_is_srgb = true
 params/blend_mode = 0
 params/depth_draw = 1
-params/line_width = 0.0
+params/line_width = 6.54406e-43
 fixed_flags/use_alpha = false
 fixed_flags/use_color_array = false
 fixed_flags/use_point_size = false
 fixed_flags/discard_alpha = false
 fixed_flags/use_xy_normalmap = false
-params/diffuse = Color( 0.270742, 0.476563, 0.0223389, 1 )
+params/diffuse = Color( 0.9375, 0.0622559, 0.103283, 1 )
 params/specular = Color( 0, 0, 0, 1 )
 params/emission = Color( 0, 0, 0, 1 )
 params/specular_exp = 40
@@ -39,28 +39,17 @@ textures/glow_tc = 0
 textures/normal_tc = 0
 textures/shade_param_tc = 0
 
-[node name="KinematicBody" type="KinematicBody"]
+[node name="Spatial" type="Spatial"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-input/ray_pickable = true
-input/capture_on_drag = false
-shape_count = 0
-collision/layers = 1
-collision/mask = 1
-collide_with/static = true
-collide_with/kinematic = true
-collide_with/rigid = true
-collide_with/character = true
-collision/margin = 0.001
-script/script = ExtResource( 1 )
 
-[node name="TestCube" type="TestCube" parent="."]
+[node name="MeshInstance" type="MeshInstance" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0 )
+transform/local = Transform( 0.998329, 0, 0, 0, 0.998329, 0, 0, 0, 0.998329, 0, 0, 0 )
 layers = 1
 geometry/visible = true
-geometry/material_override = SubResource( 1 )
+geometry/material_override = null
 geometry/cast_shadow = 1
 geometry/receive_shadows = true
 geometry/range_begin = 0.0
@@ -72,20 +61,8 @@ geometry/depth_scale = false
 geometry/visible_in_all_rooms = false
 geometry/use_baked_light = false
 geometry/baked_light_tex_id = 0
-
-[node name="AcceptDialog" type="AcceptDialog" parent="."]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 347.0
-margin/top = 234.0
-margin/right = 442.0
-margin/bottom = 292.0
-popup/exclusive = false
-window/title = "Alert!"
-dialog/text = "omnomnom"
-dialog/hide_on_ok = true
+mesh/mesh = ExtResource( 1 )
+mesh/skeleton = NodePath("..")
+material/0 = SubResource( 1 )
 
 
